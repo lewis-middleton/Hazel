@@ -8,7 +8,7 @@ workspace "Hazel"
 		"Dist"
 	}
 
-	outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
+outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 project "Hazel"
 	location "Hazel"
@@ -26,7 +26,8 @@ project "Hazel"
 
 	includedirs
 	{
-		"%{prj.name}/vendor/spdlog/include;"
+		"%{prj.name}/src",
+		"%{prj.name}/vendor/spdlog/include"
 	}
 
 	filter "system:windows"
@@ -36,8 +37,8 @@ project "Hazel"
 
 		defines
 		{
-			"HZ_PLATFORM_WINDOWS";
-			"HZ_BUILD_DLL";
+			"HZ_PLATFORM_WINDOWS",
+			"HZ_BUILD_DLL"
 		}
 
 		postbuildcommands
@@ -45,17 +46,17 @@ project "Hazel"
 			("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox")
 		}
 
-		filter "configurations:Debug"
-			defines "HZ_DEBUG"
-			symbols "On"
+	filter "configurations:Debug"
+		defines "HZ_DEBUG"
+		symbols "On"
 
-		filter "configurations:Release"
-			defines "HZ_RELEASE"
-			optimize "On"
+	filter "configurations:Release"
+		defines "HZ_RELEASE"
+		optimize "On"
 
-		filter "configurations:Dist"
-			defines "HZ_DIST"
-			optimize "On"
+	filter "configurations:Dist"
+		defines "HZ_DIST"
+		optimize "On"
 
 project "Sandbox"
 	location "Sandbox"
@@ -89,17 +90,17 @@ project "Sandbox"
 
 		defines
 		{
-			"HZ_PLATFORM_WINDOWS";
+			"HZ_PLATFORM_WINDOWS"
 		}
 
-		filter "configurations:Debug"
-			defines "HZ_DEBUG"
-			symbols "On"
+	filter "configurations:Debug"
+		defines "HZ_DEBUG"
+		symbols "On"
 
-		filter "configurations:Release"
-			defines "HZ_RELEASE"
-			optimize "On"
+	filter "configurations:Release"
+		defines "HZ_RELEASE"
+		optimize "On"
 
-		filter "configurations:Dist"
-			defines "HZ_DIST"
-			optimize "On"
+	filter "configurations:Dist"
+		defines "HZ_DIST"
+		optimize "On"
